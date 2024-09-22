@@ -90,8 +90,8 @@ const WeatherApp = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    fetchWeather(location);
-  }, [location]);
+    fetchWeather(location); // Fetch data for the default location on initial load
+  }, []);
 
   const fetchWeather = async (location: string) => {
     setLoading(true);
@@ -151,13 +151,14 @@ const WeatherApp = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-800 to-gray-900 flex items-center justify-center flex-col">
-      <div className="mb-4">
+      {/* Location search input and button */}
+      <div className="mb-4 flex flex-col items-center">
         <input
           type="text"
           value={location}
           onChange={handleLocationChange}
           placeholder="Enter city name"
-          className="p-2 rounded border border-gray-300"
+          className="p-2 rounded border border-gray-300 mb-2"
         />
         <button
           onClick={handleSearch}
@@ -166,6 +167,8 @@ const WeatherApp = () => {
           Search
         </button>
       </div>
+
+      {/* Weather data */}
       {loading ? (
         <p>Loading weather data...</p>
       ) : error ? (
